@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Booking.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #7a7e85;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Booking.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">fleet</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Represents a booking request made by an employee.</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">Booking </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">Vehicle vehicle</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Date startDate</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Date endDate</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">String employee</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Campus dropoff</span><span class="s2">; </span><span class="s5">// new in Project 2</span>
+
+    <span class="s0">public </span><span class="s1">Booking</span><span class="s2">(</span><span class="s1">Vehicle vehicle</span><span class="s2">, </span><span class="s1">Date startDate</span><span class="s2">, </span><span class="s1">Date endDate</span><span class="s2">, </span><span class="s1">String employee</span><span class="s2">, </span><span class="s1">Campus dropoff</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">vehicle </span><span class="s2">= </span><span class="s1">vehicle</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">startDate </span><span class="s2">= </span><span class="s1">startDate</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">endDate </span><span class="s2">= </span><span class="s1">endDate</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">employee </span><span class="s2">= </span><span class="s1">employee</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">dropoff </span><span class="s2">= </span><span class="s1">dropoff</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Vehicle getVehicle</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">vehicle</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Date getStartDate</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">startDate</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Date getEndDate</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">endDate</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">String getEmployee</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">employee</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Campus getDropoff</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">dropoff</span><span class="s2">; }</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">String</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s6">&quot;%s:%s [%s:%s] %s ~ %s [drop off:%s] [%s]&quot;</span><span class="s2">,</span>
+                <span class="s1">vehicle</span><span class="s2">.</span><span class="s1">getLicense</span><span class="s2">(), </span><span class="s1">vehicle</span><span class="s2">.</span><span class="s1">getMake</span><span class="s2">(),</span>
+                <span class="s1">vehicle</span><span class="s2">.</span><span class="s1">getCampus</span><span class="s2">(), </span><span class="s1">vehicle</span><span class="s2">.</span><span class="s1">getCampus</span><span class="s2">().</span><span class="s1">getCity</span><span class="s2">(),</span>
+                <span class="s1">startDate</span><span class="s2">, </span><span class="s1">endDate</span><span class="s2">, </span><span class="s1">dropoff</span><span class="s2">, </span><span class="s1">employee</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>

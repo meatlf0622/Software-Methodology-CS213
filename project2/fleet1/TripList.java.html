@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>TripList.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #7a7e85;}
+.s6 { color: #6aab73;}
+.s7 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TripList.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">fleet</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">Sort</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">DecimalFormat</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Comparator</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Maintains a list of completed trips.</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">TripList </span><span class="s0">extends </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Trip</span><span class="s2">&gt; {</span>
+
+    <span class="s0">public void </span><span class="s1">sortByLicenseAndDate</span><span class="s2">() {</span>
+        <span class="s1">Sort</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s0">this</span><span class="s2">, </span><span class="s1">Comparator</span>
+                <span class="s2">.</span><span class="s1">comparing</span><span class="s2">((</span><span class="s1">Trip t</span><span class="s2">) </span><span class="s1">-&gt; t</span><span class="s2">.</span><span class="s1">getVehicle</span><span class="s2">().</span><span class="s1">getLicense</span><span class="s2">())</span>
+                <span class="s2">.</span><span class="s1">thenComparing</span><span class="s2">(</span><span class="s1">t -&gt; t</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">())); </span><span class="s5">// fallback textual</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Print cost report grouped by department.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public void </span><span class="s1">printCharges</span><span class="s2">() {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">isEmpty</span><span class="s2">()) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;There is no archived trips for the cost report.&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">DecimalFormat money </span><span class="s2">= </span><span class="s0">new </span><span class="s1">DecimalFormat</span><span class="s2">(</span><span class="s6">&quot;$#,##0.00&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;*List of charges ordered by department.&quot;</span><span class="s2">);</span>
+
+        <span class="s5">// In a full system, you’d group by department; here, simple list</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Trip t </span><span class="s2">: </span><span class="s0">this</span><span class="s2">) {</span>
+            <span class="s0">double </span><span class="s1">charge </span><span class="s2">= </span><span class="s1">t</span><span class="s2">.</span><span class="s1">getVehicle</span><span class="s2">().</span><span class="s1">charge</span><span class="s2">(</span><span class="s1">t</span><span class="s2">.</span><span class="s1">getMileageUsed</span><span class="s2">());</span>
+            <span class="s0">double </span><span class="s1">sur </span><span class="s2">= </span><span class="s1">t</span><span class="s2">.</span><span class="s1">getVehicle</span><span class="s2">().</span><span class="s1">surcharge</span><span class="s2">(</span><span class="s1">t</span><span class="s2">.</span><span class="s1">getMileageUsed</span><span class="s2">(), </span><span class="s1">t</span><span class="s2">.</span><span class="s1">hasSurcharge</span><span class="s2">());</span>
+            <span class="s0">double </span><span class="s1">total </span><span class="s2">= </span><span class="s1">charge </span><span class="s2">+ </span><span class="s1">sur</span><span class="s2">;</span>
+            <span class="s1">String surText </span><span class="s2">= (</span><span class="s1">sur </span><span class="s2">== </span><span class="s7">0.0</span><span class="s2">) ? </span><span class="s6">&quot;no&quot; </span><span class="s2">: </span><span class="s1">money</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">sur</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">printf</span><span class="s2">(</span><span class="s6">&quot;</span><span class="s0">\t</span><span class="s6">%s%n</span><span class="s0">\t\t</span><span class="s6">[charge: %s] [surcharge: %s] [total charge: %s]%n&quot;</span><span class="s2">,</span>
+                    <span class="s1">t</span><span class="s2">, </span><span class="s1">money</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">charge</span><span class="s2">), </span><span class="s1">surText</span><span class="s2">, </span><span class="s1">money</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">total</span><span class="s2">));</span>
+        <span class="s2">}</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;*end of list.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Frontend.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Frontend.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">fleet</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">Frontend </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">Fleet fleet</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Reservation reservations</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">TripList trips</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Frontend</span><span class="s2">() {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">fleet </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Fleet</span><span class="s2">();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">reservations </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Reservation</span><span class="s2">();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">trips </span><span class="s2">= </span><span class="s0">new </span><span class="s1">TripList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Runs the Vehicle Management System.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public void </span><span class="s1">run</span><span class="s2">() {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Vehicle Management System is running.&quot;</span><span class="s2">);</span>
+        <span class="s1">Scanner sc </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s0">while </span><span class="s2">(</span><span class="s0">true</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">sc</span><span class="s2">.</span><span class="s1">hasNext</span><span class="s2">()) </span><span class="s0">break</span><span class="s2">;</span>
+            <span class="s1">String cmd </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">next</span><span class="s2">().</span><span class="s1">trim</span><span class="s2">().</span><span class="s1">toUpperCase</span><span class="s2">();</span>
+            <span class="s0">switch </span><span class="s2">(</span><span class="s1">cmd</span><span class="s2">) {</span>
+                <span class="s0">case </span><span class="s5">&quot;L&quot; </span><span class="s1">-&gt; handleLoad</span><span class="s2">(</span><span class="s1">sc</span><span class="s2">);</span>
+                <span class="s0">case </span><span class="s5">&quot;PF&quot; </span><span class="s1">-&gt; handlePrintFleet</span><span class="s2">();</span>
+                <span class="s0">case </span><span class="s5">&quot;PR&quot; </span><span class="s1">-&gt; reservations</span><span class="s2">.</span><span class="s1">printAll</span><span class="s2">();</span>
+                <span class="s0">case </span><span class="s5">&quot;PC&quot; </span><span class="s1">-&gt; trips</span><span class="s2">.</span><span class="s1">printCharges</span><span class="s2">();</span>
+                <span class="s0">case </span><span class="s5">&quot;Q&quot; </span><span class="s1">-&gt; </span><span class="s2">{ </span><span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">Vehicle Management System is terminated.&quot;</span><span class="s2">); </span><span class="s0">return</span><span class="s2">; }</span>
+                <span class="s0">default </span><span class="s1">-&gt; System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">cmd</span><span class="s2">.</span><span class="s1">toLowerCase</span><span class="s2">() + </span><span class="s5">&quot; - invalid command!&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">handleLoad</span><span class="s2">(</span><span class="s1">Scanner sc</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">loaded </span><span class="s2">= </span><span class="s1">fleet</span><span class="s2">.</span><span class="s1">loadFromFile</span><span class="s2">(</span><span class="s5">&quot;vehicles.txt&quot;</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">loaded </span><span class="s2">+ </span><span class="s5">&quot; vehicles loaded.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">handlePrintFleet</span><span class="s2">() {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">fleet</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">()) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;There is no vehicle in the fleet.&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;*List of vehicles in the fleet, ordered by location/make/date obtained.&quot;</span><span class="s2">);</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Vehicle v </span><span class="s2">: </span><span class="s1">fleet</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">v</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;*end of list.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

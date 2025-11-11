@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>Fleet.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #2aacb8;}
+.s6 { color: #7a7e85;}
+.s7 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Fleet.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">fleet</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">File</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">FileNotFoundException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Manages the collection of vehicles.</span>
+ <span class="s3">* Extends the generic util.List implementation.</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">Fleet </span><span class="s0">extends </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vehicle</span><span class="s2">&gt; {</span>
+
+    <span class="s3">/**</span>
+     <span class="s3">* Loads vehicles from vehicles.txt and returns count loaded.</span>
+     <span class="s3">*/</span>
+    <span class="s0">public int </span><span class="s1">load</span><span class="s2">(</span><span class="s1">Scanner scanner</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">count </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+        <span class="s0">while </span><span class="s2">(</span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">hasNextLine</span><span class="s2">()) {</span>
+            <span class="s1">String line </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">().</span><span class="s1">trim</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">line</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">()) </span><span class="s0">continue</span><span class="s2">;</span>
+
+            <span class="s1">Scanner s </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">line</span><span class="s2">);</span>
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s1">String license </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s1">String dateStr </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s1">String make </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s0">int </span><span class="s1">mileage </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+                <span class="s1">String campusStr </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+
+                <span class="s1">Campus campus </span><span class="s2">= </span><span class="s1">Campus</span><span class="s2">.</span><span class="s1">fromString</span><span class="s2">(</span><span class="s1">campusStr</span><span class="s2">);</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">campus </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
+
+                <span class="s6">// avoid duplicates</span>
+                <span class="s0">boolean </span><span class="s1">exists </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                <span class="s0">for </span><span class="s2">(</span><span class="s1">Vehicle v </span><span class="s2">: </span><span class="s0">this</span><span class="s2">) {</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">v</span><span class="s2">.</span><span class="s1">getLicense</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">license</span><span class="s2">)) { </span><span class="s1">exists </span><span class="s2">= </span><span class="s0">true</span><span class="s2">; </span><span class="s0">break</span><span class="s2">; }</span>
+                <span class="s2">}</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">exists</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
+
+                <span class="s0">char </span><span class="s1">typeChar </span><span class="s2">= </span><span class="s1">license</span><span class="s2">.</span><span class="s1">charAt</span><span class="s2">(</span><span class="s1">license</span><span class="s2">.</span><span class="s1">length</span><span class="s2">() - </span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Vehicle v </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                <span class="s1">Date date </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s1">dateStr</span><span class="s2">);</span>
+
+                <span class="s0">switch </span><span class="s2">(</span><span class="s1">typeChar</span><span class="s2">) {</span>
+                    <span class="s0">case </span><span class="s7">'S'</span><span class="s2">: </span><span class="s1">v </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Sedan</span><span class="s2">(</span><span class="s1">license</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">make</span><span class="s2">, </span><span class="s1">mileage</span><span class="s2">, </span><span class="s1">campus</span><span class="s2">); </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s7">'D'</span><span class="s2">: </span><span class="s1">v </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Utility</span><span class="s2">(</span><span class="s1">license</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">make</span><span class="s2">, </span><span class="s1">mileage</span><span class="s2">, </span><span class="s1">campus</span><span class="s2">); </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s7">'X'</span><span class="s2">: </span><span class="s1">v </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Truck</span><span class="s2">(</span><span class="s1">license</span><span class="s2">, </span><span class="s1">date</span><span class="s2">, </span><span class="s1">make</span><span class="s2">, </span><span class="s1">mileage</span><span class="s2">, </span><span class="s1">campus</span><span class="s2">); </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">default</span><span class="s2">: </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">v </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">v</span><span class="s2">);</span>
+                    <span class="s1">count</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception ignore</span><span class="s2">) {</span>
+                <span class="s6">// skip malformed lines</span>
+            <span class="s2">} </span><span class="s0">finally </span><span class="s2">{</span>
+                <span class="s1">s</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">count</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">loadFromFile</span><span class="s2">(</span><span class="s1">String filePath</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">Scanner fileScanner </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s0">new </span><span class="s1">File</span><span class="s2">(</span><span class="s1">filePath</span><span class="s2">))) {</span>
+            <span class="s0">return </span><span class="s1">load</span><span class="s2">(</span><span class="s1">fileScanner</span><span class="s2">);</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">FileNotFoundException e</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s7">&quot;File not found: &quot; </span><span class="s2">+ </span><span class="s1">filePath</span><span class="s2">);</span>
+            <span class="s0">return </span><span class="s5">0</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
