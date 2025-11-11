@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>List.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #6aab73;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+List.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">util</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Iterator</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">NoSuchElementException</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Generic array-backed list that grows by 4 elements at a time.</span>
+ <span class="s3">* </span><span class="s4">@param </span><span class="s1">&lt;</span><span class="s3">E</span><span class="s1">&gt; </span><span class="s3">element type</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">E</span><span class="s2">&gt; </span><span class="s0">implements </span><span class="s1">Iterable</span><span class="s2">&lt;</span><span class="s1">E</span><span class="s2">&gt; {</span>
+    <span class="s0">private </span><span class="s1">E</span><span class="s2">[] </span><span class="s1">objects</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">size</span><span class="s2">;</span>
+
+    <span class="s1">@SuppressWarnings</span><span class="s2">(</span><span class="s5">&quot;unchecked&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">() {</span>
+        <span class="s1">objects </span><span class="s2">= (</span><span class="s1">E</span><span class="s2">[]) </span><span class="s0">new </span><span class="s1">Object</span><span class="s2">[</span><span class="s6">4</span><span class="s2">];</span>
+        <span class="s1">size </span><span class="s2">= </span><span class="s6">0</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private int </span><span class="s1">find</span><span class="s2">(</span><span class="s1">E e</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s6">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">size</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++)</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">objects</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">e</span><span class="s2">)) </span><span class="s0">return </span><span class="s1">i</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s2">-</span><span class="s6">1</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">grow</span><span class="s2">() {</span>
+        <span class="s1">@SuppressWarnings</span><span class="s2">(</span><span class="s5">&quot;unchecked&quot;</span><span class="s2">)</span>
+        <span class="s1">E</span><span class="s2">[] </span><span class="s1">newArr </span><span class="s2">= (</span><span class="s1">E</span><span class="s2">[]) </span><span class="s0">new </span><span class="s1">Object</span><span class="s2">[</span><span class="s1">objects</span><span class="s2">.</span><span class="s1">length </span><span class="s2">+ </span><span class="s6">4</span><span class="s2">];</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">arraycopy</span><span class="s2">(</span><span class="s1">objects</span><span class="s2">, </span><span class="s6">0</span><span class="s2">, </span><span class="s1">newArr</span><span class="s2">, </span><span class="s6">0</span><span class="s2">, </span><span class="s1">size</span><span class="s2">);</span>
+        <span class="s1">objects </span><span class="s2">= </span><span class="s1">newArr</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">contains</span><span class="s2">(</span><span class="s1">E e</span><span class="s2">) { </span><span class="s0">return </span><span class="s1">find</span><span class="s2">(</span><span class="s1">e</span><span class="s2">) != -</span><span class="s6">1</span><span class="s2">; }</span>
+
+    <span class="s0">public void </span><span class="s1">add</span><span class="s2">(</span><span class="s1">E e</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">size </span><span class="s2">== </span><span class="s1">objects</span><span class="s2">.</span><span class="s1">length</span><span class="s2">) </span><span class="s1">grow</span><span class="s2">();</span>
+        <span class="s1">objects</span><span class="s2">[</span><span class="s1">size</span><span class="s2">++] = </span><span class="s1">e</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">remove</span><span class="s2">(</span><span class="s1">E e</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">idx </span><span class="s2">= </span><span class="s1">find</span><span class="s2">(</span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">idx </span><span class="s2">== -</span><span class="s6">1</span><span class="s2">) </span><span class="s0">return</span><span class="s2">;</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s1">idx</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">size </span><span class="s2">- </span><span class="s6">1</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++)</span>
+            <span class="s1">objects</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">objects</span><span class="s2">[</span><span class="s1">i </span><span class="s2">+ </span><span class="s6">1</span><span class="s2">];</span>
+        <span class="s1">objects</span><span class="s2">[--</span><span class="s1">size</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">isEmpty</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">size </span><span class="s2">== </span><span class="s6">0</span><span class="s2">; }</span>
+
+    <span class="s0">public int </span><span class="s1">size</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">size</span><span class="s2">; }</span>
+
+    <span class="s0">public </span><span class="s1">E get</span><span class="s2">(</span><span class="s0">int </span><span class="s1">index</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">index </span><span class="s2">&lt; </span><span class="s6">0 </span><span class="s2">|| </span><span class="s1">index </span><span class="s2">&gt;= </span><span class="s1">size</span><span class="s2">) </span><span class="s0">throw new </span><span class="s1">IndexOutOfBoundsException</span><span class="s2">();</span>
+        <span class="s0">return </span><span class="s1">objects</span><span class="s2">[</span><span class="s1">index</span><span class="s2">];</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">set</span><span class="s2">(</span><span class="s0">int </span><span class="s1">index</span><span class="s2">, </span><span class="s1">E e</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">index </span><span class="s2">&lt; </span><span class="s6">0 </span><span class="s2">|| </span><span class="s1">index </span><span class="s2">&gt;= </span><span class="s1">size</span><span class="s2">) </span><span class="s0">throw new </span><span class="s1">IndexOutOfBoundsException</span><span class="s2">();</span>
+        <span class="s1">objects</span><span class="s2">[</span><span class="s1">index</span><span class="s2">] = </span><span class="s1">e</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">indexOf</span><span class="s2">(</span><span class="s1">E e</span><span class="s2">) { </span><span class="s0">return </span><span class="s1">find</span><span class="s2">(</span><span class="s1">e</span><span class="s2">); }</span>
+
+    <span class="s0">public </span><span class="s1">Iterator</span><span class="s2">&lt;</span><span class="s1">E</span><span class="s2">&gt; </span><span class="s1">iterator</span><span class="s2">() { </span><span class="s0">return new </span><span class="s1">ListIterator</span><span class="s2">(); }</span>
+
+    <span class="s0">private class </span><span class="s1">ListIterator </span><span class="s0">implements </span><span class="s1">Iterator</span><span class="s2">&lt;</span><span class="s1">E</span><span class="s2">&gt; {</span>
+        <span class="s0">int </span><span class="s1">current </span><span class="s2">= </span><span class="s6">0</span><span class="s2">;</span>
+        <span class="s0">public boolean </span><span class="s1">hasNext</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">current </span><span class="s2">&lt; </span><span class="s1">size</span><span class="s2">; }</span>
+        <span class="s0">public </span><span class="s1">E next</span><span class="s2">() {</span>
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">hasNext</span><span class="s2">()) </span><span class="s0">throw new </span><span class="s1">NoSuchElementException</span><span class="s2">();</span>
+            <span class="s0">return </span><span class="s1">objects</span><span class="s2">[</span><span class="s1">current</span><span class="s2">++];</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

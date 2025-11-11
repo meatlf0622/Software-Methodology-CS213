@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Date.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #2aacb8;}
+.s6 { color: #6aab73;}
+.s7 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Date.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">util</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Represents a calendar date (month/day/year).</span>
+ <span class="s3">* Provides validation and comparison operations.</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">Date </span><span class="s0">implements </span><span class="s1">Comparable</span><span class="s2">&lt;</span><span class="s1">Date</span><span class="s2">&gt; {</span>
+    <span class="s0">private int </span><span class="s1">year</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">month</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">day</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Date</span><span class="s2">(</span><span class="s1">String date</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">date </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">day </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">tokens </span><span class="s2">= </span><span class="s1">date</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s6">&quot;/&quot;</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">tokens</span><span class="s2">.</span><span class="s1">length </span><span class="s2">!= </span><span class="s5">3</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">day </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">tokens</span><span class="s2">[</span><span class="s5">0</span><span class="s2">]);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">day </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">tokens</span><span class="s2">[</span><span class="s5">1</span><span class="s2">]);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">tokens</span><span class="s2">[</span><span class="s5">2</span><span class="s2">]);</span>
+    <span class="s2">}</span>
+
+    <span class="s3">/** Checks if the date is a valid calendar date. */</span>
+    <span class="s0">public boolean </span><span class="s1">isValid</span><span class="s2">() {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">year </span><span class="s2">&lt;= </span><span class="s5">0 </span><span class="s2">|| </span><span class="s1">month </span><span class="s2">&lt;= </span><span class="s5">0 </span><span class="s2">|| </span><span class="s1">day </span><span class="s2">&lt;= </span><span class="s5">0</span><span class="s2">) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">month </span><span class="s2">&gt; </span><span class="s5">12</span><span class="s2">) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">daysInMonth </span><span class="s2">= {</span><span class="s5">31</span><span class="s2">, </span><span class="s5">28</span><span class="s2">, </span><span class="s5">31</span><span class="s2">, </span><span class="s5">30</span><span class="s2">, </span><span class="s5">31</span><span class="s2">, </span><span class="s5">30</span><span class="s2">, </span><span class="s5">31</span><span class="s2">, </span><span class="s5">31</span><span class="s2">, </span><span class="s5">30</span><span class="s2">, </span><span class="s5">31</span><span class="s2">, </span><span class="s5">30</span><span class="s2">, </span><span class="s5">31</span><span class="s2">};</span>
+        <span class="s7">// leap year adjustment</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">isLeapYear</span><span class="s2">(</span><span class="s1">year</span><span class="s2">)) </span><span class="s1">daysInMonth</span><span class="s2">[</span><span class="s5">1</span><span class="s2">] = </span><span class="s5">29</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">day </span><span class="s2">&gt; </span><span class="s1">daysInMonth</span><span class="s2">[</span><span class="s1">month </span><span class="s2">- </span><span class="s5">1</span><span class="s2">]) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">return true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private boolean </span><span class="s1">isLeapYear</span><span class="s2">(</span><span class="s0">int </span><span class="s1">y</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">y </span><span class="s2">% </span><span class="s5">4 </span><span class="s2">!= </span><span class="s5">0</span><span class="s2">) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">y </span><span class="s2">% </span><span class="s5">100 </span><span class="s2">!= </span><span class="s5">0</span><span class="s2">) </span><span class="s0">return true</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">y </span><span class="s2">% </span><span class="s5">400 </span><span class="s2">== </span><span class="s5">0</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public int </span><span class="s1">compareTo</span><span class="s2">(</span><span class="s1">Date other</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">!= </span><span class="s1">other</span><span class="s2">.</span><span class="s1">year</span><span class="s2">)</span>
+            <span class="s0">return this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">- </span><span class="s1">other</span><span class="s2">.</span><span class="s1">year</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">!= </span><span class="s1">other</span><span class="s2">.</span><span class="s1">month</span><span class="s2">)</span>
+            <span class="s0">return this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">- </span><span class="s1">other</span><span class="s2">.</span><span class="s1">month</span><span class="s2">;</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">day </span><span class="s2">- </span><span class="s1">other</span><span class="s2">.</span><span class="s1">day</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">equals</span><span class="s2">(</span><span class="s1">Object obj</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(!(</span><span class="s1">obj </span><span class="s0">instanceof </span><span class="s1">Date</span><span class="s2">)) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s1">Date d </span><span class="s2">= (</span><span class="s1">Date</span><span class="s2">) </span><span class="s1">obj</span><span class="s2">;</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">year </span><span class="s2">== </span><span class="s1">d</span><span class="s2">.</span><span class="s1">year </span><span class="s2">&amp;&amp; </span><span class="s0">this</span><span class="s2">.</span><span class="s1">month </span><span class="s2">== </span><span class="s1">d</span><span class="s2">.</span><span class="s1">month </span><span class="s2">&amp;&amp; </span><span class="s0">this</span><span class="s2">.</span><span class="s1">day </span><span class="s2">== </span><span class="s1">d</span><span class="s2">.</span><span class="s1">day</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">month </span><span class="s2">+ </span><span class="s6">&quot;/&quot; </span><span class="s2">+ </span><span class="s1">day </span><span class="s2">+ </span><span class="s6">&quot;/&quot; </span><span class="s2">+ </span><span class="s1">year</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getYear</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">year</span><span class="s2">; }</span>
+    <span class="s0">public int </span><span class="s1">getMonth</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">month</span><span class="s2">; }</span>
+    <span class="s0">public int </span><span class="s1">getDay</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">day</span><span class="s2">; }</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>
