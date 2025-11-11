@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project3_v3.Controller">
+    <children>
+        <TextArea fx:id="outputArea" editable="false" layoutX="32.0" layoutY="381.0" prefHeight="198.0" prefWidth="736.0" wrapText="true" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+        <Label layoutX="32.0" layoutY="360.0" text="Console Output:" />
+
+        <TabPane layoutX="32.0" layoutY="28.0" prefHeight="315.0" prefWidth="736.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="28.0">
+            <tabs>
+                <Tab text="Book / Return">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="26.0" layoutY="25.0" prefHeight="150.0" prefWidth="380.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="104.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="10.0" prefWidth="276.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Employee:" />
+                                        <Label text="License Plate:" GridPane.rowIndex="1" />
+                                        <Label text="Start Date (m/d/y):" GridPane.rowIndex="2" />
+                                        <Label text="End Date (m/d/y):" GridPane.rowIndex="3" />
+                                        <Label text="Dropoff Campus:" GridPane.rowIndex="4" />
+                                        <TextField fx:id="bookEmployee" GridPane.columnIndex="1" />
+                                        <TextField fx:id="bookPlate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="bookStartDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="bookEndDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="bookDropoff" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    </children>
+                                </GridPane>
+                                <Button fx:id="bookButton" layoutX="295.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleMakeBooking" text="Make Booking" />
+
+                                <GridPane layoutX="430.0" layoutY="25.0" prefHeight="90.0" prefWidth="280.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="License Plate:" />
+                                        <Label text="End Date (m/d/y):" GridPane.rowIndex="1" />
+                                        <Label text="End Mileage:" GridPane.rowIndex="2" />
+                                        <TextField fx:id="returnPlate" GridPane.columnIndex="1" />
+                                        <TextField fx:id="returnEndDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="returnMileage" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                </GridPane>
+                                <Button fx:id="returnButton" layoutX="605.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleReturnVehicle" text="Return Vehicle" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <Tab text="Fleet &amp; Trips">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox layoutX="32.0" layoutY="22.0" prefHeight="242.0" prefWidth="260.0" spacing="15.0">
+                                    <children>
+                                        <Label text="Fleet Management">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="loadFleetButton" mnemonicParsing="false" onAction="#handleLoadFleet" text="Load Fleet File..." />
+                                        <Button fx:id="showFleetButton" layoutX="10.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleShowFleet" text="Show All Fleet Vehicles" />
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="322.0" layoutY="22.0" prefHeight="242.0" prefWidth="380.0" spacing="10.0">
+                                    <children>
+                                        <Label text="View Reports">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <RadioButton fx:id="radioReservationsByPlate" mnemonicParsing="false" selected="true" text="Show Reservations (by location/plate/date)">
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="reportGroup" />
+                                            </toggleGroup>
+                                        </RadioButton>
+                                        <RadioButton fx:id="radioReservationsByDept" mnemonicParsing="false" text="Show Reservations (by department/employee)" toggleGroup="$reportGroup" />
+                                        <RadioButton fx:id="radioTrips" mnemonicParsing="false" text="Show Completed Trips (by plate/date)" toggleGroup="$reportGroup" />
+                                        <RadioButton fx:id="radioCharges" mnemonicParsing="false" text="Show Trip Charges (by department)" toggleGroup="$reportGroup" />
+
+                                        <Button fx:id="showReportButton" mnemonicParsing="false" onAction="#handleShowReport" text="Show Selected Report">
+                                            <VBox.margin>
+                                                <Insets top="10.0" />
+                                            </VBox.margin>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
