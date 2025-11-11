@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>DateTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+DateTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">junit</span><span class="s2">.</span><span class="s1">jupiter</span><span class="s2">.</span><span class="s1">api</span><span class="s2">.</span><span class="s1">Test</span><span class="s2">;</span>
+<span class="s0">import static </span><span class="s1">org</span><span class="s2">.</span><span class="s1">junit</span><span class="s2">.</span><span class="s1">jupiter</span><span class="s2">.</span><span class="s1">api</span><span class="s2">.</span><span class="s1">Assertions</span><span class="s2">.*;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* Tests the isValid() method in the Date class.</span>
+ <span class="s3">* (4 invalid and 2 valid cases)</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">alexg</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">DateTest </span><span class="s2">{</span>
+    
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testInvalidDates</span><span class="s2">() {</span>
+        <span class="s1">assertFalse</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;0/1/2000&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;Month 0 invalid&quot;</span><span class="s2">);</span>
+        <span class="s1">assertFalse</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;13/11/2000&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;Month 13 invalid&quot;</span><span class="s2">);</span>
+        <span class="s1">assertFalse</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;2/29/1999&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;1999 not leap year&quot;</span><span class="s2">);</span>
+        <span class="s1">assertFalse</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;6/31/2000&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;June has 30 days&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testValidDates</span><span class="s2">() {</span>
+        <span class="s1">assertTrue</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;2/29/2020&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;Leap year date valid&quot;</span><span class="s2">);</span>
+        <span class="s1">assertTrue</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">(</span><span class="s5">&quot;12/31/2025&quot;</span><span class="s2">).</span><span class="s1">isValid</span><span class="s2">(), </span><span class="s5">&quot;Normal date valid&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
